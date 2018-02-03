@@ -25,7 +25,7 @@ public class SkillIceWall extends MapObject {
 
         this.hero = hero;
 
-        delay = 0.3f;
+        delay = 0.6f;
         lifeTime = 1.5f;
 
         //set start position

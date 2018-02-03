@@ -32,6 +32,7 @@ public class Invoker extends Hero {
     protected float cdQWE;
     protected float cdEEQ;
     protected float cdWWE;
+    protected float cdQQE;
 
     //animation actions
     protected static final int STAY = 0;
@@ -43,6 +44,7 @@ public class Invoker extends Hero {
     public static final int QWE = 6;
     public static final int EEQ = 7;
     public static final int WWE = 8;
+    public static final int QQE = 9;
 
     //private Animation heroAnimation;
     //private Animation stay;
@@ -54,6 +56,7 @@ public class Invoker extends Hero {
     private Animation qwe;
     private Animation eeq;
     private Animation wwe;
+    private Animation qqe;
 
 
     //sphere
@@ -91,9 +94,10 @@ public class Invoker extends Hero {
         cdQWE = 2f;
         cdEEQ = 2f;
         cdWWE = 2f;
+        cdQQE = 2f;
 
         //texture
-        heroMap = new Texture(Gdx.files.internal("invoker_map_v9.png"));
+        heroMap = new Texture(Gdx.files.internal("invoker_map_v10.png"));
         heroBg = new Texture(Gdx.files.internal("background_inv_960x540.png"));
         heroSkillIconMap = new Texture(Gdx.files.internal("invoker_skill_map_256x64.png"));
 
@@ -109,6 +113,7 @@ public class Invoker extends Hero {
         qwe = new Animation(new TextureRegion(heroMap), 15, 6);
         eeq = new Animation(new TextureRegion(heroMap), 13, 7);
         wwe = new Animation(new TextureRegion(heroMap), 15, 8);
+        qqe = new Animation(new TextureRegion(heroMap), 15, 9);
 
         heroAnimation = stay;
 
@@ -122,6 +127,7 @@ public class Invoker extends Hero {
         heroAnimations.add(qwe);
         heroAnimations.add(eeq);
         heroAnimations.add(wwe);
+        heroAnimations.add(qqe);
 
         //spheres
         spheres = new Array<InvokerSphere>();
