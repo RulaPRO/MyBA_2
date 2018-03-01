@@ -16,8 +16,8 @@ public class GameScreenManager {
 
         this.game = game;
         screens = new Queue<Screen>();
-        add(new StartScreen(game));
-        //add(new PickHeroScreen(game));
+        //add(new StartScreen(game));
+        add(new PickHeroScreen(game));
         game.setScreen(getScreen());
 
     }

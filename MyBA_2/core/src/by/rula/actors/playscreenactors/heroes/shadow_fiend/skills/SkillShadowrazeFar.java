@@ -10,18 +10,19 @@ import by.rula.actors.playscreenactors.Hero;
 import by.rula.actors.playscreenactors.MapObject;
 
 /**
- * Created by Rusel on 28.09.2017.
+ * Created by Rusel on 27.02.2018.
  */
 
-public class SkillShadowrazeMedium extends MapObject {
+public class SkillShadowrazeFar extends MapObject {
 
     private Sprite sprite;
     private Hero hero;
 
-    public SkillShadowrazeMedium(Hero hero) {
+    private float distance;
+
+    public SkillShadowrazeFar(Hero hero) {
         super(hero);
-        //sprite = new Sprite(new Texture(Gdx.files.internal("skill_128x128.png")));
-        sprite = new Sprite(new TextureRegion(new Texture(Gdx.files.internal("sf_skill_map_256x64.png"))), 64, 0, 64, 64);
+        sprite = new Sprite(new TextureRegion(new Texture(Gdx.files.internal("sf_skill_map_256x64.png"))), 128, 0, 64, 64);
         //setBounds(0, 0, 128, 128);
 
         this.hero = hero;
@@ -31,13 +32,13 @@ public class SkillShadowrazeMedium extends MapObject {
 
         //set start position
         if (isFaceRight) {
-            startX = hero.getX() + hero.getWidth() / 2 + 450;
+            startX = hero.getX() + hero.getWidth() / 2 + 700;
         } else {
-            startX = hero.getX() + hero.getWidth() / 2 - getWidth() - 450;
+            startX = hero.getX() + hero.getWidth() / 2 - getWidth() - 700;
         }
         startY = hero.getY();
 
-        setName("shadowrazemedium");
+        setName("shadowrazefar");
     }
 
     @Override

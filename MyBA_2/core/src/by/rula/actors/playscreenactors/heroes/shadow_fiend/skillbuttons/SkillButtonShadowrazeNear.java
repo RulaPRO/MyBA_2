@@ -27,6 +27,7 @@ public class SkillButtonShadowrazeNear extends SkillButton {
             public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
                 System.out.println("Im 1 SKILL");
                 shadowFiend.setAnimations(ShadowFiend.SHADOW_RAZE);
+                shadowFiend.createShadowrazeNear();
                 return true;
             }
         });

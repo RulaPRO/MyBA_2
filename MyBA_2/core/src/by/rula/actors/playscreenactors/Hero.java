@@ -2,7 +2,9 @@ package by.rula.actors.playscreenactors;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.utils.Array;
@@ -16,7 +18,7 @@ import by.rula.tools.Animation;
 
 public abstract class Hero extends Actor {
 
-    protected String side;
+    protected String side; // команда за которую играет герой
 
     private static final float GRAVITY = -1.5f;
     private static final float GROUND = 440f;
@@ -46,11 +48,9 @@ public abstract class Hero extends Actor {
     protected float cdSkill4;
 
     //collision box
-    //CollisionBox heroCollBox;
-    //float collX;
-    //float collY;
-    //float collWidth;
-    //float collHeight;
+    protected Rectangle heroCollRect;
+    // bullet collision box
+    protected Rectangle bulletCollRect;
 
     protected boolean isRunLeft, isRunRight;
     protected boolean isFaceRight;
@@ -89,8 +89,7 @@ public abstract class Hero extends Actor {
     //protected Texture heroIconImg;
 
     //image bullet
-    //protected String bulletSprite;
-    //Array<Bullet> bullets;
+    protected String bulletSprite;
 
     //protected Array<CollisionBox> enemyCollBox;
 
@@ -113,15 +112,18 @@ public abstract class Hero extends Actor {
         cdSkill4 = 2f;
 
         setName("hero");
-        side = "Radiant";
+        side = "dire";
 
-        //collision box
-        //collX = getX();
-        //collY = getY();
-//        collWidth = 32;
-//        collHeight = 128;
-//        heroCollBox = new CollisionBox(this, collX, collY, collWidth, collHeight);
-//
+        // hero collision box
+        //collWidth = 32;
+        //collHeight = 128;
+        heroCollRect = new Rectangle(getX(), getY(), getWidth(), getHeight());
+
+        // bullet collision box
+        bulletCollRect = new Rectangle(0, 0, 24, 24);
+        // default sprite
+        bulletSprite = "Exort_24x24.png";
+
 //        if(side.equals("radiant")) {
 //            screen.getHeroesRadiantCollBox().add(heroCollBox);
 //            enemyCollBox = screen.getHeroesDireCollBox();
@@ -131,7 +133,7 @@ public abstract class Hero extends Actor {
 //            enemyCollBox = screen.getHeroesRadiantCollBox();
 //        }
 
-//        bullets = new Array();
+        //bullets = new Array();
 
 //        addListener(new InputListener() {
 //            public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
@@ -158,7 +160,7 @@ public abstract class Hero extends Actor {
         //hero X position update
         move();
         //hero collbox position update
-//        heroCollBox.setPosition(getX() + (getWidth() - collWidth) / 2, getY());
+        heroCollRect.setPosition(getX(), getY());
 
         //animation update
         if (currentAction < 3) {  //3
@@ -180,7 +182,7 @@ public abstract class Hero extends Actor {
                     setAnimations(ATTACK);
                 }
                 if (heroAnimation.getCurrentFrame() == attackFrame && !isAttackCD) {
-//                    createBullet();
+                    createBullet();
                     isAttackCD = true;
                 }
                 //if(heroAnimation.getCurrentFrame() == heroAnimation.getFrames().size - 1) {
@@ -204,8 +206,6 @@ public abstract class Hero extends Actor {
             }
         }
 
-
-
         //texture animatin update
         heroAnimation.update(delta);
 
@@ -227,12 +227,6 @@ public abstract class Hero extends Actor {
             time = time - 1f;
         }
 
-        //bullets
-        //update
-//        for(int i = 0; i < bullets.size; i++) {
-//            bullets.get(i).update();
-//        }
-
 //        checkCollision();
 
     }
@@ -248,10 +242,14 @@ public abstract class Hero extends Actor {
             batch.draw(getCurrentTexture(), getX() + TEXTUREWIDTH + getWidth()/2, getY() - 30, -TEXTUREWIDTH * scale, TEXTUREHEIGHT * scale);
         }
 
-        //draw bullets sprite
-//        for(int i = 0; i < bullets.size; i++) {
-//            bullets.get(i).draw(batch, parentAlpha);
-//        }
+        BitmapFont bitmapFont = new BitmapFont();
+        bitmapFont.getData().setScale(2f, 2f);
+        bitmapFont.draw(batch, "name " + getName(), getX() - 50, getY() + 320);
+        bitmapFont.draw(batch, "team " + side, getX() - 50, getY() + 290);
+        bitmapFont.draw(batch, "heals " + (int)heals + " \\  " + (int)healsMax, getX() - 50, getY() + 260);
+        bitmapFont.draw(batch, "mana " + (int)mana + " \\  " + (int)manaMax, getX() - 50, getY() + 230);
+        bitmapFont.draw(batch, "damage " + (int)damage, getX() - 50, getY() + 200);
+        bitmapFont.draw(batch, "x." + getX() + " y." + getY(), getX() - 50, getY() + 170);
     }
 
     public TextureRegion getCurrentTexture() {
@@ -308,7 +306,7 @@ public abstract class Hero extends Actor {
     }
 
     //taking damage
-    public void makeDamade(float damage) {
+    public void makeDamage(float damage) {
         heals = heals - damage;
         if (heals < 0) heals = 0;
     }
@@ -362,10 +360,10 @@ public abstract class Hero extends Actor {
         isAttack = false;
     }
 
-//    public void createBullet() {
-//        Bullet b = new Bullet(screen, bulletSprite, getX() + 64, getY() + 50, isFaceRight);
-//        bullets.add(b);
-//    }
+    public void createBullet() {
+        Bullet b = new Bullet(this, bulletSprite, bulletCollRect, isFaceRight);
+        ((Group)this.getStage().getRoot().findActor("bulletManager")).addActor(b);
+    }
 
     //collisions with
 //    public void checkCollision() {
@@ -379,7 +377,7 @@ public abstract class Hero extends Actor {
 //                    bullets.removeIndex(j);
 //
 //                    //нанесение "урона" актеру с которым произошло столкновение
-//                    enemyCollBox.get(i).getHero().makeDamade(damage);
+//                    enemyCollBox.get(i).getHero().makeDamage(damage);
 //
 //                }
 //            }
@@ -388,15 +386,30 @@ public abstract class Hero extends Actor {
 
     //add a spell to the stage
     public void addSpell(MapObject spell) {
-        ((Group)this.getStage().getRoot().findActor("heroesspells")).addActor(spell);
+        ((Group)this.getStage().getRoot().findActor("heroesSpells")).addActor(spell);
     }
 
     public float getHeals() {
         return heals;
     }
 
+    public float getDamage() {
+        return damage;
+    }
+
     public boolean isFaceRight() {
         return isFaceRight;
+    }
+
+    public String getSide() {
+        return side;
+    }
+    public void setSide(String side) {
+        this.side = side;
+    }
+
+    public Rectangle getHeroCollRect() {
+        return heroCollRect;
     }
 
     public void dispose() {
@@ -405,4 +418,5 @@ public abstract class Hero extends Actor {
         heroSkillIconMap.dispose();
 //        heroIconImg.dispose();
     }
+
 }

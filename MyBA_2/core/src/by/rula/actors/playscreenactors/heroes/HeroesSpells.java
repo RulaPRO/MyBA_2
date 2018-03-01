@@ -18,7 +18,7 @@ public class HeroesSpells extends Group {
     public HeroesSpells() {
         super();
         spells = new Array<MapObject>();
-        setName("heroesspells");
+        setName("heroesSpells");
     }
 
     @Override

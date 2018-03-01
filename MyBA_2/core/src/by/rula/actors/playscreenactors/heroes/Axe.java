@@ -1,6 +1,7 @@
 package by.rula.actors.playscreenactors.heroes;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -30,13 +31,13 @@ public class Axe extends Hero {
         super();
 
         //heals
-        heals = healsMax = 500f;
+        heals = healsMax = 700f;
         healsRegen = 1.1f;
         //mana
-        mana = manaMax = 273f;
+        mana = manaMax = 291f;
         manaRegen = 0.7f;
         //damage
-        damage = 41;
+        damage = 53;
         attackCD = 1.5f;
         attackFrame = 5;
         attackCDTimeCounter = (float)attackFrame / 10;
@@ -67,23 +68,19 @@ public class Axe extends Hero {
 //        //info hero icon
 //        heroIcon = "icon_axe_128x128.png";
 //        heroIconImg = new Texture(Gdx.files.internal(heroIcon));
-//
-//        setName("axe");
+
+        setName("axe");
 
     }
 
     @Override
     public void draw(Batch batch, float parentAlpha) {
-
         super.draw(batch, parentAlpha);
-
     }
 
     @Override
     public void act(float delta) {
-
         super.act(delta);
-
     }
 
 }

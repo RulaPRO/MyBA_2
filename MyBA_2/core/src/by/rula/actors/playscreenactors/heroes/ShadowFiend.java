@@ -1,6 +1,7 @@
 package by.rula.actors.playscreenactors.heroes;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -8,7 +9,9 @@ import com.badlogic.gdx.utils.Array;
 
 import by.rula.actors.playscreenactors.Hero;
 import by.rula.actors.playscreenactors.heroes.shadow_fiend.ShadowFiendSkillManager;
+import by.rula.actors.playscreenactors.heroes.shadow_fiend.skills.SkillShadowrazeFar;
 import by.rula.actors.playscreenactors.heroes.shadow_fiend.skills.SkillShadowrazeMedium;
+import by.rula.actors.playscreenactors.heroes.shadow_fiend.skills.SkillShadowrazeNear;
 import by.rula.tools.Animation;
 
 /**
@@ -41,7 +44,7 @@ public class ShadowFiend extends Hero {
         heals = healsMax = 500f;
         healsRegen = 1.1f;
         //mana
-        mana = manaMax = 273f;
+        mana = manaMax = 291f;
         manaRegen = 0.7f;
         //damage
         damage = 41;
@@ -78,7 +81,7 @@ public class ShadowFiend extends Hero {
 //        heroIcon = "icon_sf_128x128.png";
 //        heroIconImg = new Texture(Gdx.files.internal(heroIcon));
 
-        setName("shadow fiend");
+        setName("shadowFiend");
     }
 
     @Override
@@ -102,8 +105,18 @@ public class ShadowFiend extends Hero {
         super.act(delta);
     }
 
+    public void createShadowrazeFar() {
+        SkillShadowrazeFar skillShadowrazeFar = new SkillShadowrazeFar(this);
+        addSpell(skillShadowrazeFar);
+    }
+
     public void createShadowrazeMedium() {
         SkillShadowrazeMedium skillShadowrazeMedium = new SkillShadowrazeMedium(this);
         addSpell(skillShadowrazeMedium);
+    }
+
+    public void createShadowrazeNear() {
+        SkillShadowrazeNear skillShadowrazeNear = new SkillShadowrazeNear(this);
+        addSpell(skillShadowrazeNear);
     }
 }

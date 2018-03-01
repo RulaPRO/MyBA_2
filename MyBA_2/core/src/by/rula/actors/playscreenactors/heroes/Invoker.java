@@ -1,8 +1,10 @@
 package by.rula.actors.playscreenactors.heroes;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.Array;
 
@@ -33,6 +35,7 @@ public class Invoker extends Hero {
     protected float cdEEQ;
     protected float cdWWE;
     protected float cdQQE;
+    protected float cdQQQ;
 
     //animation actions
     protected static final int STAY = 0;
@@ -45,6 +48,7 @@ public class Invoker extends Hero {
     public static final int EEQ = 7;
     public static final int WWE = 8;
     public static final int QQE = 9;
+    public static final int QQQ = 10;
 
     //private Animation heroAnimation;
     //private Animation stay;
@@ -57,6 +61,7 @@ public class Invoker extends Hero {
     private Animation eeq;
     private Animation wwe;
     private Animation qqe;
+    private Animation qqq;
 
 
     //sphere
@@ -74,11 +79,13 @@ public class Invoker extends Hero {
 
         //bounds
 
+        side = "radiant";
+
         //heals
         heals = healsMax = 520f;
         healsRegen = 1f;
         //mana
-        mana = manaMax = 251f;
+        mana = manaMax = 267f;
         manaRegen = 0.6f;
         //damage
         damage = 41f;
@@ -95,9 +102,11 @@ public class Invoker extends Hero {
         cdEEQ = 2f;
         cdWWE = 2f;
         cdQQE = 2f;
+        cdQQQ = 2f;
 
         //texture
-        heroMap = new Texture(Gdx.files.internal("invoker_map_v10.png"));
+        heroMap = new Texture(Gdx.files.internal("invoker_map_v11.png"));
+        bulletSprite = "Exort_24x24.png";
         heroBg = new Texture(Gdx.files.internal("background_inv_960x540.png"));
         heroSkillIconMap = new Texture(Gdx.files.internal("invoker_skill_map_256x64.png"));
 
@@ -114,6 +123,7 @@ public class Invoker extends Hero {
         eeq = new Animation(new TextureRegion(heroMap), 13, 7);
         wwe = new Animation(new TextureRegion(heroMap), 15, 8);
         qqe = new Animation(new TextureRegion(heroMap), 15, 9);
+        qqq = new Animation(new TextureRegion(heroMap), 15, 10);
 
         heroAnimation = stay;
 
@@ -128,6 +138,7 @@ public class Invoker extends Hero {
         heroAnimations.add(eeq);
         heroAnimations.add(wwe);
         heroAnimations.add(qqe);
+        heroAnimations.add(qqq);
 
         //spheres
         spheres = new Array<InvokerSphere>();

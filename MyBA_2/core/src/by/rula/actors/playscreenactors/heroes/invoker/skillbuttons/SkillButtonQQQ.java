@@ -16,11 +16,13 @@ import by.rula.actors.playscreenactors.hud.SkillButton;
  */
 public class SkillButtonQQQ extends SkillButton {
 
+    private Invoker invoker;
     private Sprite icon;
     private int index;
 
     public SkillButtonQQQ(Invoker hero) {
         super(hero);
+        invoker = hero;
         icon = new Sprite(new TextureRegion(new Texture(Gdx.files.internal("invoker_skill_map_640x64.png"))), 0, 0, 64, 64);
         setBounds(0, 0, 128, 128);
         index = 0;
@@ -28,6 +30,7 @@ public class SkillButtonQQQ extends SkillButton {
         addListener(new InputListener() {
             public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
                 System.out.println("Im QQQ");
+                invoker.setAnimations(Invoker.QQQ);
                 return true;
             }
 

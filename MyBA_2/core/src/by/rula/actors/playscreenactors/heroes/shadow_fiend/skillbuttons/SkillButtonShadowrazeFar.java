@@ -25,6 +25,7 @@ public class SkillButtonShadowrazeFar extends SkillButton {
             public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
                 System.out.println("Im 3 SKILL");
                 shadowFiend.setAnimations(ShadowFiend.SHADOW_RAZE);
+                shadowFiend.createShadowrazeFar();
                 return true;
             }
         });

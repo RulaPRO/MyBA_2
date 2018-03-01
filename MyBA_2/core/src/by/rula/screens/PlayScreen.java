@@ -8,6 +8,8 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.utils.viewport.FitViewport;
@@ -15,6 +17,7 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import by.rula.MyBA;
 import by.rula.actors.playscreenactors.Hero;
 import by.rula.actors.playscreenactors.PlayScreenHUD;
+import by.rula.actors.playscreenactors.heroes.Axe;
 import by.rula.actors.playscreenactors.heroes.HeroesSpells;
 import by.rula.actors.playscreenactors.heroes.ShadowFiend;
 import by.rula.actors.playscreenactors.hud.HeroSkillManager;
@@ -39,8 +42,13 @@ public class PlayScreen implements Screen {
 
     private Hero sf;
     //private Hero sfbot;
-    //private Hero axe;
+    private Hero axe;
     //private Hero inv;
+
+    private Actor btnEsc;
+
+    private Group heroesManager;
+    private Group bulletManager;
 
     private HeroesSpells heroesSpells;
 
@@ -79,14 +87,15 @@ public class PlayScreen implements Screen {
         bgImg.setName("background");
 
         //button Esc
-        //btnEsc = new Image(new Texture(Gdx.files.internal("esc_btn_256x128.png")));
-        //btnEsc.setPosition(0, stage.getHeight() - 128);
-//        btnEsc.addListener(new InputListener() {
-//            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-//                game.gsm.set(new PauseScreen(game));
-//                return true;
-//            }
-//        });
+        btnEsc = new Image(new Texture(Gdx.files.internal("esc_btn_256x128.png")));
+        btnEsc.setPosition(0, stage.getHeight() - 128);
+        btnEsc.setName("btnEsc");
+        btnEsc.addListener(new InputListener() {
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                game.gsm.set(new PickHeroScreen(game));
+                return true;
+            }
+        });
 
         //button swap
 //        btnSwap = new Image(new Texture(Gdx.files.internal("swap_btn_256x128.png")));
@@ -98,17 +107,33 @@ public class PlayScreen implements Screen {
 //            }
 //        });
 
-        //sf = new ShadowFiend(1000, 470);
+        player.setPosition(200, 470);
+        player.setSide("radiant");
+
         sf = new ShadowFiend();
-        sf.setPosition(1000, 470);
+        sf.setPosition(800, 470);
         sf.setFaceRight(false);
-        //sfbot = new ShadowFiendBot(this, 1600, 470, "dire");
-        //axe = new Axe(this, 1300, 470, "dire");
-        //inv = new Invoker(this, 100, 470, "radiant");
+
+        axe = new Axe();
+        axe.setPosition(1100, 470);
+        axe.setFaceRight(false);
 
         //player = inv;
         //selectedPlayer = player;
 
+        // heroes group
+        heroesManager = new Group();
+        heroesManager.setName("heroesManager");
+
+        heroesManager.addActor(sf);
+        heroesManager.addActor(axe);
+        heroesManager.addActor(player);
+
+        // heroes bullets
+        bulletManager = new Group();
+        bulletManager.setName("bulletManager");
+
+        // heroes spells
         heroesSpells = new HeroesSpells();
 
         //skill manager
@@ -122,20 +147,15 @@ public class PlayScreen implements Screen {
 
         stage.addActor(bgImg);
 
-        stage.addActor(sf);
-        //stage.addActor(sfbot);
-        //stage.addActor(axe);
-        //stage.addActor(inv);
-        stage.addActor(player);
-
-        //stage.addActor(btnEsc);
-        //stage.addActor(btnSwap);
+        stage.addActor(heroesManager);
+        stage.addActor(bulletManager);
 
         //add Array Spells
         stage.addActor(heroesSpells);
 
         //add HUD
         stage.addActor(hud);
+        stage.addActor(btnEsc);
         //stage.addActor(skillManager);
         //stage.addActor(selectedHeroInfo);
 
@@ -160,6 +180,7 @@ public class PlayScreen implements Screen {
                 System.out.println(a.getName());
             }
         }
+        System.out.println("+++++++++++++++++++++++");
         System.out.println("-----------------------");
 
     }
