@@ -41,8 +41,6 @@ public class SkillMeteor extends MapObject {
         }
         startY = hero.getY() + 340;
 
-
-
         setName("meteor");
     }
 

@@ -91,7 +91,7 @@ public abstract class Hero extends Actor {
     //image bullet
     protected String bulletSprite;
 
-    //protected Array<CollisionBox> enemyCollBox;
+    BitmapFont bitmapFont;
 
     public Hero() {
 
@@ -145,6 +145,8 @@ public abstract class Hero extends Actor {
 //
 //            }
 //        });
+
+        bitmapFont = new BitmapFont();
     }
 
     private Hero getThisHero () {
@@ -242,8 +244,7 @@ public abstract class Hero extends Actor {
             batch.draw(getCurrentTexture(), getX() + TEXTUREWIDTH + getWidth()/2, getY() - 30, -TEXTUREWIDTH * scale, TEXTUREHEIGHT * scale);
         }
 
-        BitmapFont bitmapFont = new BitmapFont();
-        bitmapFont.getData().setScale(2f, 2f);
+        bitmapFont.getData().setScale(2f);
         bitmapFont.draw(batch, "name " + getName(), getX() - 50, getY() + 320);
         bitmapFont.draw(batch, "team " + side, getX() - 50, getY() + 290);
         bitmapFont.draw(batch, "heals " + (int)heals + " \\  " + (int)healsMax, getX() - 50, getY() + 260);
@@ -347,9 +348,9 @@ public abstract class Hero extends Actor {
 
     private void move() {
         //if(isRunLeft) setX(getX() - runSpeed);
-        if(isRunLeft) moveBy(-runSpeed, 0);
+        if(isRunLeft && currentAction < 2) moveBy(-runSpeed, 0);
         //if(isRunRight) setX(getX() + runSpeed);
-        if(isRunRight) moveBy(runSpeed, 0);
+        if(isRunRight && currentAction < 2) moveBy(runSpeed, 0);
     }
 
     public void attackStart() {
@@ -386,7 +387,7 @@ public abstract class Hero extends Actor {
 
     //add a spell to the stage
     public void addSpell(MapObject spell) {
-        ((Group)this.getStage().getRoot().findActor("heroesSpells")).addActor(spell);
+        ((Group)this.getStage().getRoot().findActor("heroesSpellManager")).addActor(spell);
     }
 
     public float getHeals() {

@@ -34,7 +34,7 @@ public class PlayScreenHUD extends Group {
         playScreen = screen;
         setName("hud");
 
-        //buttons
+        // buttons frame
         btnframe1 = new ButtonFrame();
         btnframe1.setPosition(1410, 30);
         btnframe2 = new ButtonFrame();
@@ -49,9 +49,10 @@ public class PlayScreenHUD extends Group {
         btnframe6 = new ButtonFrame();
         btnframe6.setPosition(1240, 210);
 
+        // current hero skill buttons
         heroSkillManager = screen.getPlayer().getHeroSkillManager();
 
-        //button left
+        // button left
         buttonLeft = new ActionButton();
         buttonLeft.setPosition(50, 50);
         buttonLeft.addListener(new InputListener() {
@@ -65,7 +66,7 @@ public class PlayScreenHUD extends Group {
             }
         });
 
-        //button right
+        // button right
         buttonRight = new ActionButton();
         buttonRight.setFlipX(true);
         buttonRight.setPosition(buttonLeft.getX() + 300, buttonLeft.getY());

@@ -106,7 +106,6 @@ public class Invoker extends Hero {
 
         //texture
         heroMap = new Texture(Gdx.files.internal("invoker_map_v11.png"));
-        bulletSprite = "Exort_24x24.png";
         heroBg = new Texture(Gdx.files.internal("background_inv_960x540.png"));
         heroSkillIconMap = new Texture(Gdx.files.internal("invoker_skill_map_256x64.png"));
 
@@ -146,7 +145,7 @@ public class Invoker extends Hero {
         skills = new Array<SkillButton>();
 
         //bullets
-//        bulletSprite = "Exort_24x24.png";
+        bulletSprite = "Exort_24x24.png";
         //info hero icon
 //        heroIcon = "icon_inv_128x128.png";
 //        heroIconImg = new Texture(Gdx.files.internal(heroIcon));
@@ -159,14 +158,14 @@ public class Invoker extends Hero {
         super.draw(batch, parentAlpha);
         //draw spheres
         if(spheres.size == 3) {                 //140  226  312
-            batch.draw(spheres.get(0).getTextureSphere(spheres.get(0).getColorSphere()), getX() + -62, getY() + 150, 64, 64);
-            batch.draw(spheres.get(1).getTextureSphere(spheres.get(1).getColorSphere()), getX() + 19, getY() + 160, 64, 64);
-            batch.draw(spheres.get(2).getTextureSphere(spheres.get(2).getColorSphere()), getX() + 100, getY() + 150, 64, 64);
+            batch.draw(spheres.get(0).getTextureSphere(), getX() + -62, getY() + 150, 64, 64);
+            batch.draw(spheres.get(1).getTextureSphere(), getX() + 19, getY() + 160, 64, 64);
+            batch.draw(spheres.get(2).getTextureSphere(), getX() + 100, getY() + 150, 64, 64);
         } else if(spheres.size == 2) {
-            batch.draw(spheres.get(0).getTextureSphere(spheres.get(0).getColorSphere()), getX() + -19, getY() + 155, 64, 64);
-            batch.draw(spheres.get(1).getTextureSphere(spheres.get(1).getColorSphere()), getX() + 57, getY() + 155, 64, 64);
+            batch.draw(spheres.get(0).getTextureSphere(), getX() + -19, getY() + 155, 64, 64);
+            batch.draw(spheres.get(1).getTextureSphere(), getX() + 57, getY() + 155, 64, 64);
         } else if(spheres.size == 1) {
-            batch.draw(spheres.get(0).getTextureSphere(spheres.get(0).getColorSphere()), getX() + 19, getY() + 150, 64, 64);
+            batch.draw(spheres.get(0).getTextureSphere(), getX() + 19, getY() + 150, 64, 64);
         }
     }
 
@@ -233,11 +232,9 @@ public class Invoker extends Hero {
 //        }
 //    }
 
-    public void addSphere(int color) {
+    public void addSphere(int sphereColor) {
         if(spheres.size == 3) spheres.removeIndex(0);
-        InvokerSphere s = new InvokerSphere();
-        s.setColorSphere(color);
-        spheres.add(s);
+        spheres.add(new InvokerSphere(sphereColor));
     }
 
     public Array<InvokerSphere> getSpheres() {
@@ -249,27 +246,22 @@ public class Invoker extends Hero {
     }
 
     public void createMeteor() {
-        SkillMeteor skillMeteor = new SkillMeteor(this);
-        addSpell(skillMeteor);
+        addSpell(new SkillMeteor(this));
     }
 
     public void createTornado() {
-        SkillTornado skillTornado = new SkillTornado(this);
-        addSpell(skillTornado);
+        addSpell(new SkillTornado(this));
     }
 
     public void createDeafeningBlast() {
-        SkillDeafeningBlast skillDeafeningBlast = new SkillDeafeningBlast(this);
-        addSpell(skillDeafeningBlast);
+        addSpell(new SkillDeafeningBlast(this));
     }
 
     public void createSunStrike() {
-        SkillSunStrike skillSunStrike = new SkillSunStrike(this);
-        addSpell(skillSunStrike);
+        addSpell(new SkillSunStrike(this));
     }
 
     public void createIceWall() {
-        SkillIceWall skillIceWall = new SkillIceWall(this);
-        addSpell(skillIceWall);
+        addSpell(new SkillIceWall(this));
     }
 }

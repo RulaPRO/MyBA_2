@@ -87,17 +87,6 @@ public class ShadowFiend extends Hero {
     @Override
     public void draw(Batch batch, float parentAlpha) {
         super.draw(batch, parentAlpha);
-
-        //SHADOW RAZE MEDIUM
-//        if (currentAction == SHADOW_RAZE && heroAnimation.getCurrentFrame() == 3) {
-//            SkillShadowrazeMedium shadowrazeMedium = new SkillShadowrazeMedium(this);
-//            if(isFaceRight) {
-//                shadowrazeMedium.setPosition(getX() + getWidth() / 2 + 250, getY());
-//            } else {
-//                shadowrazeMedium.setPosition(getX() + getWidth() / 2 - 250, getY());
-//            }
-//            addSpell(shadowrazeMedium);
-//        }
     }
 
     @Override

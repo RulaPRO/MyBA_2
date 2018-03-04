@@ -35,6 +35,7 @@ public class ShadowFiendSkillManager extends HeroSkillManager {
         addActor(skill3);
         addActor(skill4);
     }
+
     @Override
     public void act(float delta) {
         super.act(delta);

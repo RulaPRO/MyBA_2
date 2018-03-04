@@ -52,6 +52,11 @@ public abstract class MapObject extends Actor {
         updateActivity();
         updateDelay(delta);
         updateLifeTime(delta);
+
+        // если неактивен - удаление со сцены)
+        if (!isActivity()) {
+            remove();
+        }
     }
 
     private void updateActivity() {

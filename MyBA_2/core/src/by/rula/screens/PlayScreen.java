@@ -5,6 +5,7 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
@@ -18,7 +19,6 @@ import by.rula.MyBA;
 import by.rula.actors.playscreenactors.Hero;
 import by.rula.actors.playscreenactors.PlayScreenHUD;
 import by.rula.actors.playscreenactors.heroes.Axe;
-import by.rula.actors.playscreenactors.heroes.HeroesSpells;
 import by.rula.actors.playscreenactors.heroes.ShadowFiend;
 import by.rula.actors.playscreenactors.hud.HeroSkillManager;
 
@@ -32,6 +32,8 @@ public class PlayScreen implements Screen {
     private SpriteBatch batch;
 
     public Stage stage;
+
+    private BitmapFont bitmapFont;
 
     private Image bgImg;
     //private Image btnEsc;
@@ -49,17 +51,13 @@ public class PlayScreen implements Screen {
 
     private Group heroesManager;
     private Group bulletManager;
-
-    private HeroesSpells heroesSpells;
+    private Group heroesSpellManager;
 
     private PlayScreenHUD hud;
 
     private HeroSkillManager skillManager;
 
     //private HeroInfo selectedHeroInfo;
-
-    //private Array<CollisionBox> heroesDireCollBox;
-    //private Array<CollisionBox> heroesRadiantCollBox;
 
     public PlayScreen(MyBA game, Hero hero) {
         this.game = game;
@@ -78,8 +76,9 @@ public class PlayScreen implements Screen {
         //controller
         Gdx.input.setInputProcessor(stage);
 
-        //heroesDireCollBox = new Array();
-        //heroesRadiantCollBox = new Array();
+        // font
+        bitmapFont = new BitmapFont();
+        bitmapFont.getData().setScale(1f);
 
         //actors
         //background
@@ -107,15 +106,15 @@ public class PlayScreen implements Screen {
 //            }
 //        });
 
-        player.setPosition(200, 470);
+        player.setPosition(500, 470);
         player.setSide("radiant");
 
         sf = new ShadowFiend();
-        sf.setPosition(800, 470);
+        sf.setPosition(1100, 470);
         sf.setFaceRight(false);
 
         axe = new Axe();
-        axe.setPosition(1100, 470);
+        axe.setPosition(1400, 470);
         axe.setFaceRight(false);
 
         //player = inv;
@@ -129,15 +128,16 @@ public class PlayScreen implements Screen {
         heroesManager.addActor(axe);
         heroesManager.addActor(player);
 
-        // heroes bullets
+        // heroes bullet group
         bulletManager = new Group();
         bulletManager.setName("bulletManager");
 
-        // heroes spells
-        heroesSpells = new HeroesSpells();
+        // heroes spell group
+        heroesSpellManager = new Group();
+        heroesSpellManager.setName("heroesSpellManager");
 
         //skill manager
-        skillManager = player.getHeroSkillManager();
+        //skillManager = player.getHeroSkillManager();
 
         //HUD
         hud = new PlayScreenHUD(this);
@@ -149,9 +149,7 @@ public class PlayScreen implements Screen {
 
         stage.addActor(heroesManager);
         stage.addActor(bulletManager);
-
-        //add Array Spells
-        stage.addActor(heroesSpells);
+        stage.addActor(heroesSpellManager);
 
         //add HUD
         stage.addActor(hud);
@@ -172,17 +170,33 @@ public class PlayScreen implements Screen {
         stage.draw();
 
         //Actors info
-        System.out.println("-----------------------");
+//        System.out.println("-----------------------");
+//        for (Actor a : stage.getActors()) {
+//            if (a instanceof Group) {
+//                System.out.println(a.getName() + " " + ((Group) a).getChildren().size);
+//            } else {
+//                System.out.println(a.getName());
+//            }
+//        }
+//        System.out.println("+++++++++++++++++++++++");
+//        System.out.println("-----------------------");
+
+        // info
+        batch.begin();
+        int x = 350;
+        int y = 150;
         for (Actor a : stage.getActors()) {
             if (a instanceof Group) {
-                System.out.println(a.getName() + " " + ((Group) a).getChildren().size);
+                bitmapFont.draw(batch, "Group \"" + a.getName() + "\" " + ((Group) a).getChildren().size, x, y);
+                //System.out.println(a.getName() + " " + ((Group) a).getChildren().size);
             } else {
-                System.out.println(a.getName());
+                bitmapFont.draw(batch, "Actor \"" + a.getName() + "\" ", x, y);
+                //bitmapFont.draw(batch, "Actor ", x, y);
+                //System.out.println(a.getName());
             }
+            y -= 15;
         }
-        System.out.println("+++++++++++++++++++++++");
-        System.out.println("-----------------------");
-
+        batch.end();
     }
 
     @Override
@@ -207,7 +221,8 @@ public class PlayScreen implements Screen {
 
     @Override
     public void dispose() {
-        player.dispose();
+        stage.dispose();
+        //player.dispose();
         //inv.dispose();
         //sf.dispose();
         //sfbot.dispose();
