@@ -29,6 +29,8 @@ public class PlayScreenHUD extends Group {
 
     private HeroSkillManager heroSkillManager;
 
+    private HeroInfo heroInfo;
+
     public PlayScreenHUD(PlayScreen screen) {
 
         playScreen = screen;
@@ -51,6 +53,9 @@ public class PlayScreenHUD extends Group {
 
         // current hero skill buttons
         heroSkillManager = screen.getPlayer().getHeroSkillManager();
+
+        //
+        heroInfo = new HeroInfo();
 
         // button left
         buttonLeft = new ActionButton();
@@ -103,6 +108,7 @@ public class PlayScreenHUD extends Group {
         addActor(btnframe6);
 
         addActor(heroSkillManager);
+        addActor(heroInfo);
 
         addActor(buttonLeft);
         addActor(buttonRight);

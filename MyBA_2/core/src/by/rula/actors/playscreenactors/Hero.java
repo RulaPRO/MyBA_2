@@ -7,8 +7,12 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.utils.Array;
 
+import by.rula.actors.playscreenactors.heroes.invoker.InvokerSphere;
+import by.rula.actors.playscreenactors.hud.HeroInfo;
 import by.rula.actors.playscreenactors.hud.HeroSkillManager;
 import by.rula.tools.Animation;
 
@@ -85,7 +89,7 @@ public abstract class Hero extends Actor {
     protected HeroSkillManager heroSkillManager;
 
     //image info
-    //protected String heroIcon;
+    protected Texture heroIcon;
     //protected Texture heroIconImg;
 
     //image bullet
@@ -147,6 +151,14 @@ public abstract class Hero extends Actor {
 //        });
 
         bitmapFont = new BitmapFont();
+
+        addListener(new InputListener() {
+            public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
+                HeroInfo g = ((Group)getStage().getRoot().findActor("hud")).findActor("heroInfo");
+                g.setHero(getThisHero());
+                return true;
+            }
+        });
     }
 
     private Hero getThisHero () {
@@ -366,32 +378,25 @@ public abstract class Hero extends Actor {
         ((Group)this.getStage().getRoot().findActor("bulletManager")).addActor(b);
     }
 
-    //collisions with
-//    public void checkCollision() {
-//
-//        for(int i = 0; i < enemyCollBox.size; i++) {
-//
-//            for(int j = 0; j < bullets.size; j++) {
-//
-//                if (enemyCollBox.get(i).getCollRect().overlaps(bullets.get(j).getCollRect())) {
-//
-//                    bullets.removeIndex(j);
-//
-//                    //нанесение "урона" актеру с которым произошло столкновение
-//                    enemyCollBox.get(i).getHero().makeDamage(damage);
-//
-//                }
-//            }
-//        }
-//    }
-
-    //add a spell to the stage
+    //add a spell to the "heroesSpellManager"
     public void addSpell(MapObject spell) {
         ((Group)this.getStage().getRoot().findActor("heroesSpellManager")).addActor(spell);
     }
 
     public float getHeals() {
         return heals;
+    }
+
+    public float getHealsMax() {
+        return healsMax;
+    }
+
+    public float getMana() {
+        return mana;
+    }
+
+    public float getManaMax() {
+        return manaMax;
     }
 
     public float getDamage() {
@@ -411,6 +416,10 @@ public abstract class Hero extends Actor {
 
     public Rectangle getHeroCollRect() {
         return heroCollRect;
+    }
+
+    public Texture getHeroIcon() {
+        return heroIcon;
     }
 
     public void dispose() {

@@ -58,6 +58,7 @@ public class ShadowFiend extends Hero {
         heroMap = new Texture(Gdx.files.internal("sf_map_v4.png"));
         heroBg = new Texture(Gdx.files.internal("background_sf_960x540.png"));
         heroSkillIconMap = new Texture(Gdx.files.internal("sf_skill_map_256x64.png"));
+        heroIcon = new Texture(Gdx.files.internal("icon_sf_128x128.png"));
 
         heroSkillManager = new ShadowFiendSkillManager(this);
 

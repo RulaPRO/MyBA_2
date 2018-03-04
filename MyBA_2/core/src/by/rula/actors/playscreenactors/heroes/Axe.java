@@ -48,6 +48,7 @@ public class Axe extends Hero {
         heroMap = new Texture(Gdx.files.internal("axe_map_v3.png"));
         heroBg = new Texture(Gdx.files.internal("background_axe_960x540.png"));
         heroSkillIconMap = new Texture(Gdx.files.internal("axe_skill_map_256x64.png"));
+        heroIcon = new Texture(Gdx.files.internal("icon_axe_128x128.png"));
 
         heroSkillManager = new AxeSkillManager(this);
 

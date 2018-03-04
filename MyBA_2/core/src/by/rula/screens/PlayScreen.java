@@ -28,7 +28,6 @@ import by.rula.actors.playscreenactors.hud.HeroSkillManager;
 public class PlayScreen implements Screen {
 
     private MyBA game;
-    private Camera camera;
     private SpriteBatch batch;
 
     public Stage stage;
@@ -36,16 +35,11 @@ public class PlayScreen implements Screen {
     private BitmapFont bitmapFont;
 
     private Image bgImg;
-    //private Image btnEsc;
     //private Image btnSwap;
 
     private Hero player;
-    //private Hero selectedPlayer;
-
     private Hero sf;
-    //private Hero sfbot;
     private Hero axe;
-    //private Hero inv;
 
     private Actor btnEsc;
 
@@ -54,10 +48,6 @@ public class PlayScreen implements Screen {
     private Group heroesSpellManager;
 
     private PlayScreenHUD hud;
-
-    private HeroSkillManager skillManager;
-
-    //private HeroInfo selectedHeroInfo;
 
     public PlayScreen(MyBA game, Hero hero) {
         this.game = game;
@@ -68,7 +58,6 @@ public class PlayScreen implements Screen {
     public void show() {
 
         batch = game.batch;
-        camera = game.camera;
 
         stage = new Stage(new FitViewport(MyBA.V_WIDTH * 2, MyBA.V_HEIGHT * 2));
         stage.setDebugAll(true);
@@ -117,9 +106,6 @@ public class PlayScreen implements Screen {
         axe.setPosition(1400, 470);
         axe.setFaceRight(false);
 
-        //player = inv;
-        //selectedPlayer = player;
-
         // heroes group
         heroesManager = new Group();
         heroesManager.setName("heroesManager");
@@ -143,8 +129,6 @@ public class PlayScreen implements Screen {
         hud = new PlayScreenHUD(this);
         hud.setPosition(0,0);
 
-        //selectedHeroInfo = new HeroInfo(selectedPlayer);
-
         stage.addActor(bgImg);
 
         stage.addActor(heroesManager);
@@ -154,8 +138,6 @@ public class PlayScreen implements Screen {
         //add HUD
         stage.addActor(hud);
         stage.addActor(btnEsc);
-        //stage.addActor(skillManager);
-        //stage.addActor(selectedHeroInfo);
 
     }
 
@@ -191,7 +173,6 @@ public class PlayScreen implements Screen {
                 //System.out.println(a.getName() + " " + ((Group) a).getChildren().size);
             } else {
                 bitmapFont.draw(batch, "Actor \"" + a.getName() + "\" ", x, y);
-                //bitmapFont.draw(batch, "Actor ", x, y);
                 //System.out.println(a.getName());
             }
             y -= 15;

@@ -108,6 +108,7 @@ public class Invoker extends Hero {
         heroMap = new Texture(Gdx.files.internal("invoker_map_v11.png"));
         heroBg = new Texture(Gdx.files.internal("background_inv_960x540.png"));
         heroSkillIconMap = new Texture(Gdx.files.internal("invoker_skill_map_256x64.png"));
+        heroIcon = new Texture(Gdx.files.internal("icon_inv_128x128.png"));
 
         heroSkillManager = new InvokerSkillManager(this);
 
