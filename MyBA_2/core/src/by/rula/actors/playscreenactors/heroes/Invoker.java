@@ -49,6 +49,7 @@ public class Invoker extends Hero {
     public static final int WWE = 8;
     public static final int QQE = 9;
     public static final int QQQ = 10;
+    public static final int QQW = 11;
 
     //private Animation heroAnimation;
     //private Animation stay;
@@ -62,6 +63,7 @@ public class Invoker extends Hero {
     private Animation wwe;
     private Animation qqe;
     private Animation qqq;
+    private Animation qqw;
 
 
     //sphere
@@ -88,7 +90,7 @@ public class Invoker extends Hero {
         mana = manaMax = 267f;
         manaRegen = 0.6f;
         //damage
-        damage = 41f;
+        damage = 123f; // 41
         attackCD = 1.5f;
         attackFrame = 5;
         attackCDTimeCounter = (float)attackFrame / 10;
@@ -105,7 +107,7 @@ public class Invoker extends Hero {
         cdQQQ = 2f;
 
         //texture
-        heroMap = new Texture(Gdx.files.internal("invoker_map_v11.png"));
+        heroMap = new Texture(Gdx.files.internal("invoker_map_v12.png"));
         heroBg = new Texture(Gdx.files.internal("background_inv_960x540.png"));
         heroSkillIconMap = new Texture(Gdx.files.internal("invoker_skill_map_256x64.png"));
         heroIcon = new Texture(Gdx.files.internal("icon_inv_128x128.png"));
@@ -124,6 +126,7 @@ public class Invoker extends Hero {
         wwe = new Animation(new TextureRegion(heroMap), 15, 8);
         qqe = new Animation(new TextureRegion(heroMap), 15, 9);
         qqq = new Animation(new TextureRegion(heroMap), 15, 10);
+        qqw = new Animation(new TextureRegion(heroMap), 12, 11);
 
         heroAnimation = stay;
 
@@ -139,6 +142,7 @@ public class Invoker extends Hero {
         heroAnimations.add(wwe);
         heroAnimations.add(qqe);
         heroAnimations.add(qqq);
+        heroAnimations.add(qqw);
 
         //spheres
         spheres = new Array<InvokerSphere>();
