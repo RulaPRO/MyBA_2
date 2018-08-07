@@ -16,18 +16,22 @@ import by.rula.actors.playscreenactors.hud.SkillButton;
  */
 public class SkillButtonQQW extends SkillButton {
 
+    private Invoker invoker;
     private Sprite icon;
     private int index;
 
     public SkillButtonQQW(Invoker hero) {
         super(hero);
+        invoker = hero;
         icon = new Sprite(new TextureRegion(new Texture(Gdx.files.internal("invoker_skill_map_640x64.png"))), 64, 0, 64, 64);
-        setBounds(0, 0, 128, 128);
+        //setBounds(0, 0, 128, 128);
         index = 1;
 
         addListener(new InputListener() {
             public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
                 System.out.println("Im QQW");
+                invoker.setAnimations(Invoker.QQW);
+                //invoker.createGhostWalk();
                 return true;
             }
 
@@ -44,7 +48,7 @@ public class SkillButtonQQW extends SkillButton {
 
     @Override
     public void act(float delta) {
-
+        super.act(delta);
     }
 
     public int getIndex() {
